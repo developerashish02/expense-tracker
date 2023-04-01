@@ -2,6 +2,7 @@
 import './App.css';
 import Expenses from './components/Expense/Expenses';
 import NewExpense from './components/newExpense/NewExpense';
+// import NewExpense from './components/newExpense/NewExpense';
 
 
 
@@ -29,9 +30,18 @@ const expenses = [
 ];
 
 const App = () => {
+
+  const getNewExpense = (expense) => {
+    const newExpense = {
+      ...expense
+    }
+
+    expenses.push(newExpense);
+    console.log("Finally", newExpense)
+  }
   return (
     <div className="App">
-      <NewExpense />
+      <NewExpense onGetNewExpense={getNewExpense} />
       <Expenses expenses={expenses} />
     </div>
   );
