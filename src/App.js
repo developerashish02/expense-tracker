@@ -1,13 +1,11 @@
 
+import { useState } from 'react';
 import './App.css';
 import Expenses from './components/Expense/Expenses';
-import NewExpense from './components/newExpense/NewExpense';
+import NewExpense from './components/newExpense/NewExpense'
 // import NewExpense from './components/newExpense/NewExpense';
 
-
-
-
-const expenses = [
+const DUMMY_EXPENSE = [
   {
     id: 'e1',
     title: 'Toilet Paper',
@@ -31,13 +29,20 @@ const expenses = [
 
 const App = () => {
 
+  const [expenses, seEexpenses] = useState(DUMMY_EXPENSE)
+
   const getNewExpense = (expense) => {
     const newExpense = {
       ...expense
     }
 
-    expenses.push(newExpense);
-    console.log("Finally", newExpense)
+
+    seEexpenses((prevState) => {
+      return [newExpense, ...prevState]
+    })
+
+    console.log(expenses)
+
   }
   return (
     <div className="App">
