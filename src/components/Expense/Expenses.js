@@ -12,13 +12,16 @@ function Expenses(props) {
 
     const filterExpense = props.expenses.filter(expense => expense.date.getFullYear().toString() === expenseYear)
 
+    let filterMessage = <p>No Expense Found...</p>;
+
+    if (filterExpense.length > 0) {
+        filterMessage = filterExpense.map(expense => <ExpenseItem title={expense.title} amount={expense.amount} date={expense.date} key={expense.id} />)
+    }
+
     return (
         <div className='expenses'>
             <ExpensesFilter onGetSelectedYear={getSelectedYear} selected={expenseYear} />
-            {
-              filterExpense.map(expense => <ExpenseItem title={expense.title} amount={expense.amount} date={expense.date} key={expense.id} />)
-            }
-
+            {filterMessage}
         </div>
     )
 }
