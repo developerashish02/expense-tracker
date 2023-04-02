@@ -4,7 +4,7 @@ import './ExpenseForm.css';
 const ExpenseForm = (props) => {
   // const [title, setTitle] = useState('');
   // const [amount, setAmount] = useState('');
-  // const [date, setDate] = useState('');
+  const [showForm, SetshowForm] = useState(false);
 
   const [userInput, setUserinput] = useState({
     title: '',
@@ -70,30 +70,46 @@ const ExpenseForm = (props) => {
       amount: '',
       date: ''
     })
-    console.log(expenseData)
+
+    SetshowForm(false);
   }
-  return <form onSubmit={handleSubmit}>
-    <div className="new-expense__controls">
-      <div className='new-expense__control'>
-        <label > Title </label>
-        <input type="text" onChange={handleTitle} value={userInput.title} />
 
-      </div>
-      <div className='new-expense__control'>
-        <label > Amount </label>
-        <input type="number" onChange={handleAmount} value={userInput.amount} />
+  const handleFormContent = () => {
+    SetshowForm(true);
+  }
 
-      </div>
-      <div className='new-expense__control'>
-        <label > Date </label>
-        <input type="date" onChange={handleDate} value={userInput.date} />
-      </div>
-    </div>
+  const handleCancelForm = () => {
+    SetshowForm(false);
+  }
+  return <div>
+    {showForm && <form onSubmit={handleSubmit}>
+      <div className="new-expense__controls">
+        <div className='new-expense__control'>
+          <label > Title </label>
+          <input type="text" onChange={handleTitle} value={userInput.title} />
 
-    <div className='new-expense__actions'>
-      <button type='submit'>Add Expense</button>
-    </div>
-  </form>
+        </div>
+        <div className='new-expense__control'>
+          <label > Amount </label>
+          <input type="number" onChange={handleAmount} value={userInput.amount} />
+
+        </div>
+        <div className='new-expense__control'>
+          <label > Date </label>
+          <input type="date" onChange={handleDate} value={userInput.date} />
+        </div>
+      </div>
+
+      <div className='new-expense__actions'>
+        <button type='submit'>Add Expense</button>
+        <button type='submit' onClick={handleCancelForm}>Cancel</button>
+      </div>
+    </form>}
+
+    {!showForm && <div className='new-expense__actions show-form'>
+      <button type='button' onClick={handleFormContent} >Add Expense</button>
+    </div>}
+  </div>
 }
 
 export default ExpenseForm; 
